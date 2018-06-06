@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bigben"
+    tools:context="tuyenmanucian.e_flashcard.IrregularActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/layout_margin"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etIrre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/duongvien_goctron"
+            android:hint="Nhập từ cần tra... "
+            android:inputType="textVisiblePassword"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnRemove"
+            android:layout_width="@dimen/cross_size"
+            android:layout_height="@dimen/cross_size"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginRight="@dimen/button_margin"
+            android:background="@drawable/red_cross"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_irregular"
+        android:textColor="@color/title_irregular"
+        android:textSize="@dimen/title_irregular_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/button_margin"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lvIrregular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_irregular"
+            android:gravity="center">
+
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

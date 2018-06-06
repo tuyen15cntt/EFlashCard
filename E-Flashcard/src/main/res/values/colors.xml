@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background_irregular">#be90d7ff</color>
+    <color name="background_card">#360b0b</color>
+    <color name="title_irregular">#df0000</color>
+
+    <color name="word_history">#303F9F</color>
+    <color name="mean_history">#000000</color>
+
+    <color name="actv">#00ff1e</color>
+    <color name="word">#000000</color>
+    <color name="line">#40ffff</color>
+</resources>

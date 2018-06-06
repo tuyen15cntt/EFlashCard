@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">E-Flashcard</string>
+    <string name="title_activity_card">FlashCards</string>
+    <string name="title_activity_words">Your Words</string>
+    <string name="title_activity_trans">Translate</string>
+    <string name="title_activity_irregular">Irregular Verbs</string>
+    <string name="title_activity_history">History</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="title_irregular">Bảng động từ bất quy tắc</string>
+
+    <string name="show_word">Show Word</string>
+    <string name="show_pron">Show Pronunciation</string>
+    <string name="show_mean">Show Mean</string>
+
+    <string-array name="Periods">
+        <item>Contract</item>
+        <item>Marketing</item>
+        <item>Warranties</item>
+        <item>Business Plan</item>
+        <item>Conferences</item>
+        <item>Computers And The Internet</item>
+        <item>Office Technology</item>
+        <item>Office Procedures</item>
+        <item>Electronics</item>
+        <item>Correspondence</item>
+        <item>Job Ads &amp; Recruitment</item>
+        <item>Apply and Interviewing</item>
+        <item>Hiring and Training</item>
+        <item>Salaries &amp; Benefits</item>
+        <item>Promotions, Pensions &amp; Awards</item>
+        <item>Shopping</item>
+        <item>Ordering Supplies</item>
+        <item>Shipping</item>
+        <item>Invoices</item>
+        <item>Inventory</item>
+        <item>Banking</item>
+        <item>Accounting</item>
+        <item>Investments</item>
+        <item>Taxes</item>
+        <item>Financial Statements</item>
+        <item>Property &amp; Departments</item>
+        <item>Board Meeting &amp; Committees</item>
+        <item>Quality Control</item>
+        <item>Product Development</item>
+        <item>Renting &amp; Leasing</item>
+        <item>Selecting A Restaurant</item>
+        <item>Eating Out</item>
+        <item>Ordering Lunch</item>
+        <item>Cooking As A Career</item>
+        <item>Events</item>
+        <item>General Travel</item>
+        <item>Airlines</item>
+        <item>Trains</item>
+        <item>Hotels</item>
+        <item>Car Rentals</item>
+        <item>Movies</item>
+        <item>Theater</item>
+        <item>Music</item>
+        <item>Museums</item>
+        <item>Media</item>
+        <item>Doctor's Office</item>
+        <item>Dentist's Office</item>
+        <item>Health</item>
+        <item>Hopitals</item>
+        <item>Pharmacy</item>
+    </string-array>
+</resources>

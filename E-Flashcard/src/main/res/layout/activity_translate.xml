@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/layout_margin"
+    android:orientation="vertical"
+    tools:context="tuyenmanucian.e_flashcard.TranslateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:gravity="right">
+
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Search... "
+            android:inputType="textVisiblePassword"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnMic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/micro" />
+
+            <Button
+                android:id="@+id/btnSpeaker"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/speaker" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+
+</LinearLayout>
