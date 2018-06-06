@@ -55,17 +55,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         getWord();
         addControls();
         addEvents();
-
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-
         //readJson(); //init data
         //readFromFB();
+        //read();
         //read();
 
     }
