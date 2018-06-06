@@ -1,8 +1,9 @@
 package tuyenmanucian.e_flashcard;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,13 +11,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,11 +34,12 @@ import java.util.ArrayList;
 
 import tuyenmanucian.e_flashcard.models.Card;
 import tuyenmanucian.e_flashcard.models.Irregular;
-import tuyenmanucian.e_flashcard.models.Word;
 
 public class MainActivity extends AppCompatActivity {
 
 
+    private static final Integer STATUS_OK = 1 ;
+    private static final Integer STATUS_ERROR = 0 ;
     private Button btnClear, btnFlashcard, btnYourWord, btnTranslate, btnIrregular, btnHistory, btnSetting;
     private DatabaseReference mDatabase;
 
@@ -54,49 +53,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_splash);
+        getSupportActionBar().hide();
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        getWord();
-        addControls();
-        addEvents();
+        mList = new ArrayList<Card>();
+        mListWord = new ArrayList<String>();
+        DownloadData downloadData;
+        downloadData = new DownloadData();
+        downloadData.execute();
+       // getWord();
+       // start();
+
+
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+
         //readJson(); //init data
         //readFromFB();
-        //read();
         //read();
 
     }
 
+    private void start() {
+        setContentView(R.layout.activity_main);
+        getSupportActionBar().show();
+        addControls();
+        addEvents();
+    }
+
     private void getWord() {
-        actv = findViewById(R.id.actv);
-        mList = new ArrayList<Card>();
-        mListWord = new ArrayList<String>();
-        mAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mListWord); // lam custom cho autocomplete
-        actv.setAdapter(mAdapter);
-        actv.setThreshold(1);
         aPeriods = getResources().getStringArray(R.array.Periods);
-
-        actv.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!actv.getText().toString().equals("")) { //if edittext include text
-                    btnClear.setVisibility(View.VISIBLE);
-                } else { //not include text
-                    btnClear.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
         for (int i=0; i < aPeriods.length; i++ ){
           //  getData(aPeriods[i]);
             mDatabase.child("Period").child(aPeriods[i]).addChildEventListener(new ChildEventListener() {
@@ -129,37 +116,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                View layout = getLayoutInflater().inflate(R.layout.dialog_word, null);
-                final TextView tvWord = layout.findViewById(R.id.tvWord);
-                final TextView tvEssential = layout.findViewById(R.id.tvEssential);
-                final ImageView imgView = layout.findViewById(R.id.imgView);
-                final TextView tvPronunciation = layout.findViewById(R.id.tvPronunciation);
-                final TextView tvMean = layout.findViewById(R.id.tvMean);
-                int idx=0;
-                for(int k = 0; k < mList.size(); k++)
-                {
-                    String temp = mListWord.get(i);
-                    if(mList.get(k).getWord().equals(temp))
-                    {
-                        idx = k;
-                        break;
-                    }
-                }
-                Card card = mList.get(idx);
-                tvWord.setText(card.getWord());
-                tvEssential.setText(card.getEssential());
-                Picasso.with(MainActivity.this).load(card.getImage()).into(imgView);
-                tvPronunciation.setText(card.getPronunciation());
-                tvMean.setText(card.getMean());
-                new AlertDialog.Builder(MainActivity.this)
-                        .setView(layout)
-                        .create()
-                        .show();
-            }
-        });
+
     }
 
     private void getData(String temp) {
@@ -1898,6 +1855,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("WrongViewCast")
     private void addControls() {
+        actv = findViewById(R.id.actv);
+        mAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mListWord); // lam custom cho autocomplete
+        actv.setAdapter(mAdapter);
+        actv.setThreshold(1);
         btnClear=findViewById(R.id.btnClear);
         btnFlashcard=findViewById(R.id.btnFlashcard);
         btnYourWord=findViewById(R.id.btnYourWord);
@@ -1910,7 +1871,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!actv.getText().toString().equals("")) { //if edittext include text
+                    btnClear.setVisibility(View.VISIBLE);
+                } else { //not include text
+                    btnClear.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                View layout = getLayoutInflater().inflate(R.layout.dialog_word, null);
+                final TextView tvWord = layout.findViewById(R.id.tvWord);
+                final TextView tvEssential = layout.findViewById(R.id.tvEssential);
+                final ImageView imgView = layout.findViewById(R.id.imgView);
+                final TextView tvPronunciation = layout.findViewById(R.id.tvPronunciation);
+                final TextView tvMean = layout.findViewById(R.id.tvMean);
+                int idx=0;
+                String temp = actv.getText().toString();
+                for(int k = 0; k < mList.size(); k++)
+                {
+
+                    if(mList.get(k).getWord().equals(temp))
+                    {
+                        idx = k;
+                        break;
+                    }
+                }
+                Card card = mList.get(idx);
+                tvWord.setText(card.getWord());
+                tvEssential.setText(card.getEssential());
+                Picasso.with(MainActivity.this).load(card.getImage()).into(imgView);
+                tvPronunciation.setText(card.getPronunciation());
+                tvMean.setText(card.getMean());
+                new AlertDialog.Builder(MainActivity.this)
+                        .setView(layout)
+                        .create()
+                        .show();
+            }
+        });
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1967,5 +1979,70 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private class DownloadData extends AsyncTask<Integer, Integer, Integer> {
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+
+            try {
+                aPeriods = getResources().getStringArray(R.array.Periods);
+                for (int i = 0; i < aPeriods.length; i++) {
+                    //  getData(aPeriods[i]);
+                    mDatabase.child("Period").child(aPeriods[i]).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            Card card = dataSnapshot.getValue(Card.class);
+                            mList.add(card);
+                            mListWord.add(card.getWord());
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                SystemClock.sleep(5000);
+            }
+            catch (Exception e)
+            {
+                return STATUS_ERROR;
+            }
+
+
+            return STATUS_OK;
+        }
+
+        @Override
+        protected void onPostExecute(Integer s) {
+            super.onPostExecute(s);
+
+            if (s == STATUS_OK) {
+                start();
+
+
+            } else {
+
+
+            }
+        }
+    }
+
 
 }

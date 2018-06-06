@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/E-Flashcard/E-Flashcard.iml" filepath="$PROJECT_DIR$/E-Flashcard/E-Flashcard.iml" />
-      <module fileurl="file://$PROJECT_DIR$/EFlashCard.iml" filepath="$PROJECT_DIR$/EFlashCard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EFlashcard.iml" filepath="$PROJECT_DIR$/.idea/EFlashcard.iml" />
     </modules>
   </component>
 </project>
